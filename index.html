@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Daniil Staliarou — ASO Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0D0D0D;
+      --white:      #FFFFFF;
+      --surface:    #F5F5F5;
+      --rule:       #E8E8E8;
+      --mid:        #9A9A9A;
+      --soft:       #C4C4C4;
+      --radius:     14px;
+      --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+      --t:          0.22s;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 44px 64px 38px;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(-12px);
+      animation: fadeDown 0.5s var(--ease) 0.05s forwards;
+    }
+
+    .avatar-wrap {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid var(--rule);
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-text h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+
+    .header-text p {
+      font-size: 0.7rem;
+      color: var(--mid);
+      margin-top: 5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex;
+      gap: 0;
+      padding: 0 64px;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.45s var(--ease) 0.18s forwards;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 22px 40px 22px 0;
+    }
+
+    .stat-item + .stat-item {
+      padding-left: 40px;
+      border-left: 1px solid var(--rule);
+    }
+
+    .stat-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.67rem;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ── GRID SECTION ── */
+    .grid-section {
+      padding: 44px 64px 88px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.4s var(--ease) 0.28s forwards;
+    }
+
+    .section-label {
+      font-size: 0.67rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+    }
+
+    .section-count {
+      font-size: 0.67rem;
+      color: var(--soft);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(14px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.04);
+      transition:
+        transform 0.3s var(--ease),
+        box-shadow 0.3s var(--ease);
+      border: 1px solid var(--rule);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.18s var(--ease),
+        transform 0.18s var(--ease),
+        box-shadow 0.3s var(--ease);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.07);
+    }
+
+    .card-img-wrap { overflow: hidden; line-height: 0; }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1320 / 1207;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.38s var(--ease);
+    }
+
+    .card:hover .card-img { transform: scale(1.03); }
+
+    /* label below image */
+    .card-label {
+      padding: 12px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--white);
+      border-top: 1px solid var(--rule);
+    }
+
+    .card-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-arrow {
+      font-size: 0.9rem;
+      color: var(--soft);
+      flex-shrink: 0;
+      transition: color var(--t) var(--ease), transform var(--t) var(--ease);
+    }
+
+    .card:hover .card-arrow {
+      color: var(--ink);
+      transform: translateX(3px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 24px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--soft);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-tag {
+      font-size: 0.72rem;
+      color: var(--soft);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 13, 13, 0.48);
+      backdrop-filter: blur(10px) saturate(0.85);
+      -webkit-backdrop-filter: blur(10px) saturate(0.85);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s var(--ease);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ── MODAL ── */
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(14px) scale(0.97);
+      transition: transform 0.28s var(--ease-spring);
+      box-shadow:
+        0 4px 24px rgba(0,0,0,0.1),
+        0 16px 56px rgba(0,0,0,0.1);
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    /* sticky header inside modal */
+    .modal-header {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+      background: var(--white);
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    /* close button */
+    .modal-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1.5px solid var(--rule);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition:
+        background var(--t) var(--ease),
+        border-color var(--t) var(--ease),
+        transform var(--t) var(--ease);
+    }
+
+    .modal-close svg {
+      width: 11px;
+      height: 11px;
+      stroke: var(--mid);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      transition: stroke var(--t) var(--ease);
+    }
+
+    .modal-close:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      transform: scale(1.08);
+    }
+
+    .modal-close:hover svg { stroke: var(--white); }
+
+    /* scrollable body */
+    .modal-body {
+      overflow-y: auto;
+      padding: 22px 24px 32px;
+      flex: 1;
+      scrollbar-width: thin;
+      scrollbar-color: var(--rule) transparent;
+    }
+
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-track { background: transparent; }
+    .modal-body::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 4px; }
+
+    /* ── ASO FIELDS ── */
+    .aso-field { margin-bottom: 20px; }
+    .aso-field:last-child { margin-bottom: 0; }
+
+    .aso-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--soft);
+      margin-bottom: 7px;
+    }
+
+    .aso-value {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    .aso-value a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      opacity: 0.65;
+      transition: opacity var(--t);
+    }
+
+    .aso-value a:hover { opacity: 1; }
+
+    .aso-divider {
+      height: 1px;
+      background: var(--rule);
+      margin: 20px 0;
+    }
+
+    /* ── CONTACT BUTTON ── */
+    header {
+      justify-content: flex-start;
+    }
+
+    .contact-btn {
+      margin-left: auto;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1.5px solid var(--rule);
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+      transition:
+        background var(--t) var(--ease),
+        border-color var(--t) var(--ease),
+        color var(--t) var(--ease);
+    }
+
+    .contact-btn:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--white);
+    }
+
+    /* ── CONTACT MODAL ── */
+    .contact-modal { max-width: 420px; }
+
+    .contact-body {
+      padding: 12px 16px 20px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--rule);
+      text-decoration: none;
+      color: var(--ink);
+      transition:
+        background var(--t) var(--ease),
+        border-color var(--t) var(--ease);
+    }
+
+    .contact-item:hover {
+      background: var(--surface);
+      border-color: var(--soft);
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--ink);
+    }
+
+    .contact-icon svg { width: 18px; height: 18px; }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .contact-value {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-arrow {
+      color: var(--soft);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      transition: color var(--t) var(--ease), transform var(--t) var(--ease);
+    }
+
+    .contact-item:hover .contact-arrow {
+      color: var(--ink);
+      transform: translateX(3px);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── TEXT PROTECTION ── */
+    .aso-value,
+    .aso-label,
+    .modal-title,
+    .header-text h1,
+    .header-text p,
+    .card-name,
+    .stat-num,
+    .stat-label {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* overlay that blocks right-click context on modal body */
+    .modal-body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    /* ── MOBILE OPTIMIZATIONS ── */
+    /* tap highlight */
+    * { -webkit-tap-highlight-color: transparent; }
+
+    /* prevent rubber-band scroll on iOS */
+    html { overscroll-behavior: none; }
+
+    /* touch-friendly tap targets */
+    .card { -webkit-touch-callout: none; }
+    .modal-close { min-width: 44px; min-height: 44px; width: 44px; height: 44px; }
+    .modal-close svg { width: 13px; height: 13px; }
+
+    /* smooth scrolling in modal on iOS */
+    .modal-body { -webkit-overflow-scrolling: touch; }
+
+    /* GPU acceleration for animated elements */
+    .card, .modal { will-change: transform; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      header, .grid-section, footer { padding-left: 32px; padding-right: 32px; }
+      .stats { padding-left: 32px; padding-right: 32px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      header { padding: 28px 20px 24px; gap: 12px; }
+      .header-text p { font-size: 0.62rem; letter-spacing: 0.06em; }
+      .contact-btn { padding: 7px 13px; font-size: 0.75rem; }
+      .stats { padding: 0 20px; }
+      .stat-item { padding: 16px 16px 16px 0; }
+      .stat-item + .stat-item { padding-left: 16px; }
+      .stat-num { font-size: 1.05rem; }
+      .stat-label { font-size: 0.58rem; letter-spacing: 0.07em; white-space: nowrap; }
+      .grid-section { padding: 28px 20px 64px; }
+      .grid { grid-template-columns: 1fr; gap: 14px; }
+      footer { padding: 20px; }
+      .modal-overlay { padding: 12px; }
+      .modal { border-radius: 16px; max-height: 92vh; }
+      .modal-header { padding: 18px 18px 14px; }
+      .modal-body { padding: 18px 18px 28px; }
+      .aso-value { font-size: 0.95rem; line-height: 1.75; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="avatar-wrap">
+    <img src="IMG_2585.jpg" alt="Daniil Staliarou" />
+  </div>
+  <div class="header-text">
+    <h1>Daniil Staliarou</h1>
+    <p>ASO Specialist · iGaming</p>
+  </div>
+  <button class="contact-btn" id="contactBtn" aria-label="Contact">Contact</button>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <span class="stat-num">150+</span>
+    <span class="stat-label">Apps published</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">1.5 yr</span>
+    <span class="stat-label">Experience</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">EN</span>
+    <span class="stat-label">Language</span>
+  </div>
+</div>
+
+<!-- GRID -->
+<section class="grid-section">
+  <div class="section-head">
+    <span class="section-label">Selected works</span>
+    <span class="section-count" id="sectionCount"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Daniil Staliarou</span>
+  <span class="footer-tag">ASO Portfolio</span>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="contactOverlay" role="dialog" aria-modal="true">
+  <div class="modal contact-modal">
+    <div class="modal-header">
+      <div class="modal-title">Contact</div>
+      <button class="modal-close" id="contactClose" aria-label="Close">
+        <svg viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+      </button>
+    </div>
+    <div class="modal-body contact-body">
+      <a class="contact-item" href="mailto:danik.stolyarov@gmail.com">
+        <div class="contact-icon">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="16" height="13" rx="2"/>
+            <polyline points="2,4 10,12 18,4"/>
+          </svg>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">danik.stolyarov@gmail.com</span>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/daniil-staliarou" target="_blank" rel="noopener">
+        <div class="contact-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path d="M16.667 2H3.333A1.333 1.333 0 002 3.333v13.334A1.333 1.333 0 003.333 18h13.334A1.333 1.333 0 0018 16.667V3.333A1.333 1.333 0 0016.667 2zM7 15H4.5V8H7v7zm-1.25-8.4a1.35 1.35 0 110-2.7 1.35 1.35 0 010 2.7zM16 15h-2.5v-3.5c0-.97-.53-1.5-1.25-1.5s-1.25.53-1.25 1.5V15H8.5V8H11v1.1c.5-.8 1.3-1.1 2-1.1 1.7 0 3 1.1 3 3.4V15z"/>
+          </svg>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">daniil-staliarou</span>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" id="modalClose" aria-label="Close">
+        <svg viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  const apps = [
+    {
+      name: "FreshLine Control",
+      subtitle: "Your Grid, Your Rules",
+      image: "IMG_0508.jpg",
+      promo: null,
+      description: `In most grid games, everything is decided for you. In FreshLine Control, you get to change that.
+
+You choose which lines and cells on the grid count as matching combinations, and pick the symbols that fill the board – up to five. Mix and match from different themed sets, find the combination that feels right, and make the grid genuinely yours. Set it up once and start spinning, or tweak things along the way whenever you feel like it.
+
+Small changes to your setup can lead to surprisingly different outcomes, which makes the whole thing genuinely fun to mess around with. No two sessions feel quite the same.
+
+The whole thing plays out against a lush jungle backdrop – warm colors, smooth animations, and a vibe that feels relaxed rather than rushed.
+
+Every day, a bonus opens up. A wheel spins and lands on a color, a monkey dashes across the board and stops at the nearest matching tile. It's a nice little moment that breaks up the rhythm.
+
+FreshLine Control is completely free to play - no in-app purchases, no paywalls, no real money. Just an entertainment game that runs entirely on in-game currency.
+
+Support: <a href="https://linecontrol.one/support.html" target="_blank">linecontrol.one/support.html</a>
+Privacy Policy: <a href="https://linecontrol.one/index.html" target="_blank">linecontrol.one/index.html</a>`
+    },
+    {
+      name: "RushFrame",
+      subtitle: "Game Booster, Lower Ping",
+      image: "IMG_0532-2.jpg",
+      promo: "New to RushFrame? Open the app each day and earn up to 2,800 MB of free boost data in your first 7 days. No subscription needed to get started.",
+      description: `RushFrame is a gaming booster built around one idea: your connection should never be the reason you lose.
+
+Intelligent network optimization routes your gaming traffic through the fastest available path, reducing ping and stabilizing your connection in real time. One tap and you're live - watch it happen on the built-in latency graph, with before and after values updating as you play.
+
+Turn on AI Optimization and the app automatically selects the best server for your game and location. No configuration, no guesswork.
+
+Browse a curated library of supported titles – PUBG Mobile, Call of Duty, Fortnite, Free Fire, Mobile Legends and more - or switch on universal mode to accelerate any game on your device.
+
+Free users earn bonus data just for opening the app each day, starting at 100 MB and building up to 700 MB by day seven, with the cycle resetting fresh every week.
+
+Ready to go further? RushFrame PRO removes every limit: unlimited boost time, VIP server access, and global coverage wherever you play.
+
+Better ping. Less waiting. More playing.
+
+Terms: <a href="https://rushframe.net/user-agreement.html" target="_blank">rushframe.net/user-agreement.html</a>
+Privacy Policy: <a href="https://rushframe.net/privacy.html" target="_blank">rushframe.net/privacy.html</a>`
+    },
+    {
+      name: "Iris Spinmill",
+      subtitle: "A cozy step-by-step puzzle",
+      image: "IMG_0520.jpg",
+      promo: "That moment when the third piece clicks into place? That's the whole game. And it never gets old. Now sweeter than ever.",
+      description: `Some games are about speed. Iris Spinmill is about patience - and the small joy of watching things come together just right.
+
+Match flowers, bees, and honey. Knead the dough, bake the bread. Every theme tells a little story, and your job is to follow it through to the end by matching three of the same element in a row. Simple on the surface, quietly satisfying once you're in it.
+
+Fall behind and the board will remind you - elements start to pulse, slowly at first, then faster. It's not a threat, just a nudge. But if you miss the moment, everything disappears in a soft puff of smoke and the cycle begins again. A little dramatic, in the best way.
+
+Power-ups like Frost Lock and Shadow Drop are there for when you need them most - freeze a column, shift things down, find the match that wasn't there a second ago. Earn stars, spend them well, and the game opens up.
+
+As you level up, new themes unlock: fishing, mining, coffee, baking, and the sweet world of Iris candy - each one its own little world to get lost in.`
+    },
+    {
+      name: "LAV: Track Your Mood",
+      subtitle: "Daily wellness companion",
+      image: "IMG_0468.jpg",
+      promo: "Meet your new virtual companion and turn self-care into a cozy daily ritual. Track moods, build gentle habits, and grow together - one mindful moment at a time.",
+      description: `Meet LAV - a cozy mood tracker with a companion who grows with you. Track emotions, build gentle self-care habits, and turn daily check-ins into a calming ritual. No streaks-shame, no pressure - just a charming friend cheering you on through your wellness journey.
+
+Start by crafting your profile and meeting your new virtual companion. Choose from lovable characters, each with their own personality and style. Together, you'll embark on a transformative journey of growth, creativity, and self-discovery.
+
+Log how you feel through our beautiful, intuitive mood calendar. Simply tap a colorful indicator to capture your emotions. Over time, you'll uncover fascinating patterns in your emotional world.
+
+Dive into daily quests designed to boost your wellbeing. Whether it's practicing gratitude, taking nature walks, or trying creative activities, every completed mission rewards you with special bonuses for your character.
+
+Transform your companion's cozy room into a masterpiece! Shop for adorable furniture, vibrant decorations, and unique accessories. The more you care for yourself, the more beautiful their world becomes.`
+    },
+    {
+      name: "Bust or Glory",
+      subtitle: "Card Game & AI Trainer",
+      image: "IMG_0528.jpg",
+      promo: "Bust or Glory is a fresh take on a classic card game. Two modes, one goal: help you enjoy every hand while actually getting better at the game.",
+      description: `TRAINING MODE — THE HEART OF THE GAME
+
+This is where Bust or Glory really stands out. A built-in AI coach watches every move you make and gives instant feedback. Made the right call? It confirms it. Missed the better play? It explains what you should have done and why, based on the strategy you picked.
+
+Choose how you want to grow:
+
+Basic Strategy: learn the optimal decision for every hand you and the dealer can have.
+Card Counting: track the flow of high and low cards to spot when the odds tilt in your favor.
+
+Each session turns into a lesson, and every lesson sharpens your instincts for the next hand.
+
+CLASSIC MODE — PURE GAMEPLAY
+
+Already know what you're doing? Jump straight into the classic experience and play the pure version of the game with the core actions you already know: Take, Stand, Split, Double. No coaching, no interruptions - just you, the cards, and the flow.
+
+Bust or Glory is completely free and built purely for entertainment and learning.`
+    },
+    {
+      name: "Monro.s Gravewalk",
+      subtitle: "Tile Puzzle & Survival Game",
+      image: "IMG_0502.jpg",
+      promo: null,
+      description: `Every tile hides something. Every run ends differently. Step into Monro's world and find out.
+
+Monro.s Gravewalk is a tactical survival game where every step could be your last. Guide Monro - a lost soul trapped in a corrupted world - through a tile-based grid filled with traps, hidden paths, and relentless enemies. The "s" in the name? It's all that remains of his save file. There won't be another.
+
+Move Monro across the grid using directional controls, but every tile carries its own arrow, redirecting your path in unexpected ways. Land on a freeze tile to stop all enemies in their tracks, hit a spring to fly to a random location, collect a bonus to eliminate an enemy, or stumble into a portal and appear somewhere entirely new. Every tile changes everything.
+
+Track your progress through four achievement categories – Step Mastery, Tile Explorer, Survival Skills, and Enemies Cleaner – each with five milestones that reward endurance and strategy. Customize your experience with multiple game themes that transform the visual atmosphere of every match.
+
+Every move matters. Every second counts. Keep Monro alive as long as you can.`
+    },
+    {
+      name: "SymboSix",
+      subtitle: "Six Card Mind Bender",
+      image: "IMG_0531.jpg",
+      promo: "Plan, adapt, and explore your options in SymboSix, where strategy shapes every combination and each choice leads to its own outcome.",
+      description: `What if a card game challenged the way you think? SymboSix introduces a new kind of strategic logic built around nine unique combinations that you can construct. Your task isn't to rely on chance - it's to decide which formation you're aiming for and assemble it across a three-round cycle, with each round giving you several opportunities to shape your set of six cards.
+
+If your current selection doesn't align with the combination you're building, you can replace chosen cards up to three times per cycle, adjusting your plan and steering your way toward the pattern you want. Each card has a Score value and a crystal grade, and the crystals you earn allow you to unlock special collections like Flamen, Dux, Umbra, or Mars. These collections strengthen your regular cards, letting you reinforce a promising combination at just the right moment.
+
+You can prepare a collection before a round begins, using each of its cards once. If a collection stays unused for three rounds, it naturally expires - keeping the experience fair and focused on strategic decision-making.
+
+SymboSix offers a calm, engaging style of play centered on planning, recognition, and the curiosity of seeing how far your strategy can take you.`
+    },
+    {
+      name: "Iris: Glow Duel",
+      subtitle: "Who wins next? Your call.",
+      image: "IMG_0512.jpg",
+      promo: "Sweet Season is here! New bunny rivals Iris & Toffee have hopped into the arena – same duel, fresh candy glow. Can you still call the winner?",
+      description: `Two bunnies. One card each. Who comes out on top?
+
+Iris: Glow Duel puts your prediction skills to the test every single round. Iris or Toffee - one of them is about to win, and your job is to call it before the cards are dealt.
+
+It's not luck. It's not random. It's pattern recognition dressed up in candy glow.
+
+The live stats shift with every round – watch the percentages move, keep an eye on how many cards are left in the deck, and decide whether the data is telling you something or leading you astray. Sometimes it all lines up perfectly. Sometimes the rarest outcome of all lands - a Suited Tie - and everything changes.
+
+Three modes, three different rhythms. Classic keeps things measured. High Voltage turns up the pressure. One-Tap mode cuts to the action - fixed picks, one tap, zero waiting.
+
+Iris. Toffee. A Tie. A Suited Tie. Four outcomes, endless reads, and a rivalry that never gets old.
+
+100% free. 100% in-game currency. Zero paywalls.
+
+The cards are already shuffled. Can you see what's coming?
+
+Privacy Policy & Support: <a href="https://mytrixglow.club/" target="_blank">mytrixglow.club</a>`
+    },
+    {
+      name: "FLAG&MAN: AI Coach",
+      subtitle: "Talk Better, Date Smarter",
+      image: "IMG_0444.jpg",
+      promo: "Stop freezing up on dates. Your AI coach creates personalized practice scenarios so conversations feel natural, not forced.",
+      description: `Tired of running out of things to say? FLAG&MAN: AI Coach creates conversation scenarios that actually fit your life.
+
+Tell the app about yourself - your interests, goals, what makes you nervous - and it builds practice scenarios just for you. No generic pickup lines or awkward scripts.
+
+WHAT YOU'LL DO
+Chat with AI that feels surprisingly real. Generate new conversation ideas whenever you're stuck. Practice tough situations before they happen.
+
+SITUATIONS WE COVER
+First dates when you're nervous. Dating app conversations that go nowhere. Job interviews that matter. Meeting new people at parties or events. Handling rejection gracefully.
+
+HOW IT HELPS
+You'll stop overthinking every word. Conversations start feeling more natural. That anxious feeling before social events fades. You actually look forward to meeting new people.
+
+BUILT DIFFERENT
+Most apps give you the same advice everyone else gets. This one learns how you communicate and creates scenarios that match your personality. The conversations feel real because the AI has practiced with thousands of people.
+
+WHO IT'S FOR
+People who get tongue-tied on dates. Anyone who feels awkward in social situations. Professionals preparing for important conversations. Really, anyone who wants to feel more confident when talking to people.
+
+The app gets smarter the more you use it. Your practice sessions become more sophisticated as your skills improve.`
+    },
+    {
+      name: "TerraWeave",
+      subtitle: "Think. Combine. Dominate.",
+      image: "IMG_0479.jpg",
+      promo: "Think beyond the obvious moves. Combine Earth, Air, Fire, and Water in this captivating strategy puzzle where clever positioning unlocks powerful results.",
+      description: `TerraWeave — Strategic Element Puzzle
+
+Think several moves ahead in this captivating elemental strategy game. Combine Earth, Air, Fire, and Water cards to forge powerful combinations through clever positioning.
+
+Will you craft the mighty Flame for 5 points by uniting Fire and Earth? Or secure steady progress with Water and Fire creating Mist for 2 points?
+
+Navigate 5 challenging rounds where positioning trumps luck. Each round grants you 3 cards to place on the grid. When elemental cards touch horizontally or vertically, they merge into something greater.
+
+Your combinations unlock these powers:
+Earth + Air → Storm (3 points)
+Water + Fire → Mist (2 points)
+Fire + Earth → Flame (5 points)
+Air + Water → Tempest (4 points)
+
+Cards persist between rounds creating dynamic battlefield evolution. Intelligent opponent adapts to your moves. Clean design keeps focus on pure tactics. Multiple approaches reward different playstyles.
+
+Perfect for players who love thoughtful planning and smart decision-making. Each game unfolds differently as leftover cards create new opportunities.
+
+Master the elements. Plan ahead. Experience pure strategy.`
+    },
+    {
+      name: "StreamWin AI Coach",
+      subtitle: "Create winning content",
+      image: "IMG_0488.jpg",
+      promo: "Built for streamers: plan shows, spark ideas, and craft descriptions with AI scripts and content tools.",
+      description: `StreamWin is your AI-driven companion for streamers, helping you plan content, craft descriptions, and spark fresh ideas - everything you need to prep standout broadcasts.
+
+Dive into focused AI chats across five core workflows: Stream Prep, Content Ideas, Audience Insights, Stream Script, and Filming Tips. The assistant understands streaming pain points and gives guidance tailored to your channel and goals.
+
+Level up your skills with the built-in Training Quiz powered by AI. Choose your stream topic and get a dynamically generated quiz with practical questions, explanations, and follow-up tips. The quiz adapts to your answers to reinforce weak spots and turns key lessons into actionable checklists for your next broadcast.
+
+Need polished copy in a hurry? The Text Generator delivers descriptions, social posts, scripts, and chat replies in seconds. Ask for a highlight blurb, a schedule announcement, or a segment intro and get ready-to-use text instantly.
+
+Keep every tip at your fingertips. The Advice Library stores your conversations by topic so you can revisit key recommendations or start a new thread whenever inspiration hits.
+
+Stay on track with Stream Planner. Schedule streams, add notes and descriptions, set times, and manage everything in one place - no more last-minute chaos.
+
+This isn't a one-size-fits-all tool. StreamWin was shaped by real streamer feedback and built to fit naturally into your creative workflow.
+
+From brainstorming to broadcast, get AI support at every step. StreamWin is your creative co-pilot.`
+    }
+  ];
+
+  // Section count
+  document.getElementById('sectionCount').textContent = apps.length + ' projects';
+
+  // Build grid
+  const grid = document.getElementById('grid');
+  apps.forEach(app => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-img-wrap">
+        <img class="card-img" src="${app.image}" alt="${app.name}" loading="lazy" />
+      </div>
+      <div class="card-label">
+        <span class="card-name">${app.name}</span>
+        <span class="card-arrow">→</span>
+      </div>`;
+    card.addEventListener('click', () => openModal(app));
+    grid.appendChild(card);
+  });
+
+  // Instant reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0 });
+
+  document.querySelectorAll('.card').forEach(c => io.observe(c));
+
+  // Contact modal
+  const contactOverlay = document.getElementById('contactOverlay');
+  const contactBtn     = document.getElementById('contactBtn');
+  const contactClose   = document.getElementById('contactClose');
+
+  contactBtn.addEventListener('click', () => {
+    contactOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeContact() {
+    contactOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  contactClose.addEventListener('click', closeContact);
+  contactOverlay.addEventListener('click', e => { if (e.target === contactOverlay) closeContact(); });
+
+  // ── COPY PROTECTION ──
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && ['c','u','s','a','p'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+    }
+    if (e.key === 'F12') e.preventDefault();
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+    }
+  });
+
+  // Modal
+  const overlay    = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody  = document.getElementById('modalBody');
+  const modalClose = document.getElementById('modalClose');
+
+  function openModal(app) {
+    modalTitle.textContent = app.name;
+
+    let html = '';
+
+    html += `<div class="aso-field">
+      <div class="aso-label">Subtitle</div>
+      <div class="aso-value">${app.subtitle}</div>
+    </div>`;
+
+    if (app.promo) {
+      html += `<div class="aso-divider"></div>
+      <div class="aso-field">
+        <div class="aso-label">Promotional Text</div>
+        <div class="aso-value">${app.promo}</div>
+      </div>`;
+    }
+
+    html += `<div class="aso-divider"></div>
+    <div class="aso-field">
+      <div class="aso-label">App Description</div>
+      <div class="aso-value">${app.description.replace(/\n/g, '<br>')}</div>
+    </div>`;
+
+    modalBody.innerHTML = html;
+    modalBody.scrollTop = 0;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeContact(); }
+  });
+</script>
+</body>
+</html>
